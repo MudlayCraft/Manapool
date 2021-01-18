@@ -8,4 +8,6 @@ public class enums {
     enum Color {
         FOREST, ISLAND, MOUNTAIN, PLAINS, SWAMP, WASTE
     }
+
+    //Test
 }
