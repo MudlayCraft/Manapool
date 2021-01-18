@@ -9,5 +9,4 @@ public class enums {
         FOREST, ISLAND, MOUNTAIN, PLAINS, SWAMP, WASTE
     }
 
-    //Test
 }
