@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -18,7 +20,7 @@ public class GUI {
     private JTextField valueSwamp;
     private JTextField valueWaste;
     private JButton calculateButton;
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane deckPanel;
     private JLabel resultForest;
     private JLabel resultIsland;
     private JLabel resultMountain;
@@ -26,6 +28,11 @@ public class GUI {
     private JLabel resultSwamp;
     private JLabel resultWaste;
     private JPanel panelResult;
+    private JList decks;
+    private JButton deckSearch;
+    private JList deckDetails;
+    private JPanel displayName;
+    private JLabel title;
 
     public GUI() {
         JFrame frame = new JFrame("Manabase - Calculator");
@@ -50,6 +57,26 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 calculate((String) formatSelector.getSelectedItem());
+            }
+        });
+        deckSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String deckname = JOptionPane.showInputDialog(null, "Bitte gebe den Decknamen ein","Eingabe",JOptionPane.QUESTION_MESSAGE);
+                Deck d = new Deck();
+                d.deckname=deckname;
+                d.deckList = Decklist.loadDeck(deckname);
+                d.typ = Interactor.getFormat(d);
+
+                decks.add(deckname,null);
+
+            }
+        });
+        decks.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                title.setText((String)decks.getSelectedValue());
+
             }
         });
     }
@@ -95,7 +122,7 @@ public class GUI {
         resultSwamp.setText("" + id[4]);
         resultWaste.setText("" + id[5]);
 
-        tabbedPane1.setSelectedComponent(panelResult);
+        deckPanel.setSelectedComponent(panelResult);
 
     }
 
